@@ -1,0 +1,4 @@
+set car to "Range Rover"
+set car 's horsepower to 800
+
+print car 's horsepower
