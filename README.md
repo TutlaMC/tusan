@@ -7,7 +7,7 @@ Wait wait wait... before you click away, see why TuSK is better than its competi
 
 ### Features
 
-**Ever wanted to make a AI assistant for your server, no you can in under 30 lines of english**
+**Ever wanted to make a AI assistant for your server, now you can in under 30 lines of english**
 
 - Interpreted Language with core programming components such as functions, variables, loops, expressions
 - English like syntax (inspired by Skript)
