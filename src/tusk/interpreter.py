@@ -2,6 +2,7 @@ import re
 import math
 import asyncio
 import json
+import os
 
 from logger import *
 from tusk.lexer import *
@@ -11,14 +12,25 @@ from tusk.nodes.statement import StatementNode
 from tusk.nodes.base.function import FunctionNode
 from tusk.nodes.base.return_node import ReturnNode
 
-
 ### INTERPRETER
 
 class Interpreter:
     def __init__(self):      
         self.return_value = True
 
-    def setup(self, data=None, tokens=None, text=None, file=None, is_cmd=False):
+    def setup(self, data=None, tokens=None, text=None, file=None, ext=[]):
+        ## Lang Init
+        with open("lang/main.json","r") as f:
+            main = json.load(f)
+        for i in ext:
+            # load the extension
+            with open(i,"r") as f:
+                e = json.load(f)
+            for name, conf in e["lang"]["lexer"].items():
+                main["lang"]["lexer"][name] = conf
+        
+
+        ## Interpreter Init
         if data==None:
             self.data = {
                 "vars":{},
@@ -33,8 +45,6 @@ class Interpreter:
             with open(file, "r") as f:
                 self.text = f.read()
             self.file=file
-            if is_cmd:
-                self.text = "\n".join(self.text.split("\n")[1:])
         else: self.file = "<stdin>"
 
         if tokens==None:

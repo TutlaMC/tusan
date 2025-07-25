@@ -1,5 +1,6 @@
 from tusk.token import Token
-KEYWORDS = [
+"""
+keywords = [
       
       "then", "elseif", "else",
       "that",
@@ -20,7 +21,7 @@ KEYWORDS = [
       "because",
 ]
 
-TYPES_ = ["NUMBER","STRING","BOOL","BOOLEAN","LIST","NOTHING","TSON"]
+types = ["NUMBER","STRING","BOOL","BOOLEAN","LIST","NOTHING","TSON"]
 
 EFFECTS = [
     "set",
@@ -41,7 +42,7 @@ EFFECTS = [
 STRUCTURES = [
     "if","while","function","loop"
 ]
-
+"""
 
 # May not be the best lexer, but hey- if it works it works and don't touch it, you'll prob mess it up
 
@@ -177,13 +178,13 @@ class Lexer:
                         elif self.ctoken in ["<", ">", "<=", ">=", "==", "!=","is"]:
                             self.tokens.append(Token("COMPARISION", self.ctoken, self.interpreter))
                             self.ctoken = ""
-                        elif self.ctoken in KEYWORDS:
+                        elif self.ctoken in keywords:
                             self.tokens.append(Token("KEYWORD", self.ctoken, self.interpreter))
                             self.ctoken = ""
                         elif self.ctoken in EFFECTS:
                             self.tokens.append(Token("EFFECT",self.ctoken,self.interpreter))
                             self.ctoken=""
-                        elif self.ctoken in TYPES_:
+                        elif self.ctoken in types:
                             self.tokens.append(Token("TYPE",self.ctoken, self.interpreter))
                             self.ctoken=""
                         elif self.ctoken in STRUCTURES:

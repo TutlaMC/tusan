@@ -1,0 +1,17 @@
+{
+    "core":{
+        "classic":true
+    },
+    "lang":{
+        "lexer": {
+            "SET":["set"],
+            "TO":["to"]
+        },
+        "syntax":{
+            "var":{
+                "node":"VAR",
+                "syntax": "[SET] {[IDENTIFIER]:name} [TO] {<expr>:expr}"
+            }   
+        }
+    }
+}

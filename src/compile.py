@@ -4,8 +4,6 @@ import asyncio
 from tusk.interpreter import Interpreter
 import json
 file = sys.argv[1]
-
-print(f"* NOTE THIS IS NOT THE SAME AS RUNNING THE BOT, THIS IS JUST FOR USING TUSK WITHOUT THE DISCORD FEATURES OR TESTING YOUR CODE BEFORE USING A BOT *\nCompiling file (BOT IS NOT INITIALIZED): {file}\n==========================================================\n")
 interpreter = Interpreter()
 
 interpreter.setup(file=file)
