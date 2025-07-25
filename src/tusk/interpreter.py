@@ -20,6 +20,15 @@ class Interpreter:
 
     def setup(self, data=None, tokens=None, text=None, file=None, ext=[]):
         ## Lang Init
+        #
+        #
+        #
+        # Note: Currently this does absolutely nothing, read only the compile function
+        #
+        #
+        #
+        #
+
         with open("lang/main.json","r") as f:
             main = json.load(f)
         for i in ext:

@@ -1,38 +1,4 @@
 {
     "debug": false,
-    "owners": [
-    ],
-    "jsk": true,
-    "status": {
-        "loop": [
-            {
-                "type": "online",
-                "message": "TuSK for life!"
-            },
-            {
-                "type": "online",
-                "message": "The best bots are made in TuSK!"
-            },
-            {
-                "message": "I use tusk btw",
-                "type": "online"
-            },
-            {
-                "type": "listening",
-                "message": "commands"
-            }
-        ]
-    },
-    "preinstalled_commands": true,
-    "package_sources": {
-        "wimp-official": {
-            "url": "https://github.com/TutlaMC/wimp-packages",
-            "branch": "main"
-        }
-    },
-    "packages": {
-
-    },
-    "command_prefix": "tusk.",
-    "version": "1.0.1"
+    "version": "1.0.0"
 }
