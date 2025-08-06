@@ -42,7 +42,8 @@ while IFS= read -r file; do
         total_classes=$((total_classes + classes))
         
         functions=$(grep -c "^    def " "$file")
-        total_functions=$((total_functions + functions))
+        functions= functions + functions2
+        total_functions=$((total_functions + functions2))
         
         imports=$(grep -c "^import\|^from " "$file")
         total_imports=$((total_imports + imports))
