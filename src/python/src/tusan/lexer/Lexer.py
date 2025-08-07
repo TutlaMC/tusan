@@ -1,5 +1,5 @@
 from tusk.token import Token
-"""
+
 keywords = [
       
       "then", "elseif", "else",
@@ -30,7 +30,7 @@ EFFECTS = [
     "add","remove","split","replace", 
     "length",
     "input","convert",
-    "shell", "python",
+    "shell",
     "request",
     "index",
     "read","write","rename",
@@ -42,7 +42,6 @@ EFFECTS = [
 STRUCTURES = [
     "if","while","function","loop"
 ]
-"""
 
 # May not be the best lexer, but hey- if it works it works and don't touch it, you'll prob mess it up
 

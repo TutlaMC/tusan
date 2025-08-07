@@ -20,10 +20,6 @@ if "--vars" in sys.argv:
     print(interpreter.data["vars"])
 if "--funcs" in sys.argv:
     print(interpreter.data["funcs"])
-if "--events" in sys.argv:
-    print(interpreter.data["events"],"\n")
-if "--event-executors" in sys.argv:
-    print(event_executors)
 if "--return" in sys.argv:
     print(interpreter.return_value)
 print("==========================================================\n")
