@@ -75,7 +75,6 @@
       ],
       "STRUCTURE": ["if", "while", "function", "loop"],
       "IDENTIFIER": "[A-Za-z_][A-Za-z0-9_]*"
-    },
-    "syntax": {}
+    }
   }
 }

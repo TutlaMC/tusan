@@ -24,8 +24,20 @@ class Interpreter:
         self.return_value = True
 
     def setup(self, data: InterpreterData=None, tokens=None, text=None, file=None, ext=[]):
-        ##### Lang Init
+        """
+        lang: dict - lexer config
 
+        statementNode: Node - The Statement Executor
+
+
+        execute: bool - Whether to execute or no
+        translate: bool - Whether to translate or no
+
+        data: InterpreterData - Interpreter Data
+        file: str - File Path
+        text: str - Text
+        """
+        ##### Lang Init
         with open("lang/main.json","r") as f:
             main = json.load(f)
         for i in ext: # load extenions
@@ -33,15 +45,18 @@ class Interpreter:
                 main["lang"]["lexer"][name] = conf
         
         self.lang = main
-
-        self.defaultStatementNode = StatementNode
+ 
+        self.statementNode = StatementNode
 
 
         ##### Interpreter Init
+        self.execute = True
+
         if data==None:
             self.data = InterpreterData()
         else:
             self.data = data
+
         ## Content Load
         if text!=None:self.text=text
         if file!=None:
@@ -70,7 +85,7 @@ class Interpreter:
         self.debug_msg(self.tokens)
         return self
 
-    async def compile(self):
+    async def parse(self):
         self.end_found = False
         self.caught_error = False
 
@@ -91,7 +106,8 @@ class Interpreter:
                     self.debug_msg("FAILCHECK ENDSCRIPT", "<- stmt end")
                     return self.return_value
                 try:
-                    await self.defaultStatementNode(self.current_token).create()
+                    e = self.statementNode(self.current_token)
+                    await e.create()
                 except Exception as e:
                     self.error("UnknownError", str(e))
                     raise e
@@ -112,9 +128,6 @@ class Interpreter:
     
     def addCompileCheck(self, check, node):
         pass
-
-
-
     ###################################
 
 
