@@ -1,4 +1,4 @@
-
+from tusan.Node import *
 
 class FactorNode(Node):
     def __init__(self, value:Token, rules=[]):

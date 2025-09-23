@@ -1,17 +1,12 @@
 #from tusan.interpreter import *
 import asyncio
+import json
+from tusan.interpreter.Interpreter import Interpreter
 
-code = """
-set x to 10
-print(x + x)
-"""
-
-"""
-intr = Interpreter().setup(file="scripts/test.tusk",ext=["lang/load.json"])
+with open("lang/load.json","r") as f:
+    e = json.load(f)
+intr = Interpreter().setup(file="scripts/test.tusk",ext=[e])
 
 intr.addCompileCheck()
 
 asyncio.run(intr.compile())
-"""
-
-import tusan.lexer.Lexer

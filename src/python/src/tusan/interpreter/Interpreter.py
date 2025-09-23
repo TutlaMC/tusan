@@ -5,12 +5,15 @@ import json
 import os
 
 from logger import *
-from tusan.lexer import *
+from tusan.lexer.Lexer import Lexer
 
-from tusan.nodes.expressions import FactorNode, TermNode, ExpressionNode
-from tusan.nodes.statement import StatementNode
-from tusan.nodes.base.function import FunctionNode
-from tusan.nodes.base.return_node import ReturnNode
+from tusan.Node import *
+from tusan.nodes.expression.Factor import FactorNode
+from tusan.nodes.expression.Term import TermNode
+from tusan.nodes.expression.Expression import ExpressionNode
+from tusan.nodes.Statement import StatementNode
+from tusan.nodes.base.function.FunctionNode import FunctionNode
+from tusan.nodes.base.Return import ReturnNode
 
 from tusan.interpreter.InterpreterData import InterpreterData
 
@@ -21,19 +24,20 @@ class Interpreter:
         self.return_value = True
 
     def setup(self, data: InterpreterData=None, tokens=None, text=None, file=None, ext=[]):
-        ## Lang Init
+        ##### Lang Init
 
         with open("lang/main.json","r") as f:
             main = json.load(f)
         for i in ext: # load extenions
-            with open(i,"r") as f:
-                e = json.load(f)
-            for name, conf in e["lang"]["lexer"].items():
+            for name, conf in i["lang"]["lexer"].items(): #lexer shi
                 main["lang"]["lexer"][name] = conf
         
         self.lang = main
 
-        ## Interpreter Init
+        self.defaultStatementNode = StatementNode
+
+
+        ##### Interpreter Init
         if data==None:
             self.data = InterpreterData()
         else:
@@ -49,7 +53,7 @@ class Interpreter:
         if tokens==None:
             lexer = Lexer(self.text, self)
             lexer.set_classifications(main['lang']['lexer'])
-            self.tokens = lexer.classify_tokens()
+            self.tokens = lexer.tokenize()
         else:
             self.tokens = tokens 
             self.tokens = self.change_token_parent(self)                       
@@ -69,6 +73,7 @@ class Interpreter:
     async def compile(self):
         self.end_found = False
         self.caught_error = False
+
         while self.pos <= len(self.tokens)-1:
             #self.debug_msg(self.current_token, "<- stmt start")
             if self.end_found:
@@ -77,10 +82,7 @@ class Interpreter:
             if self.current_token.type == "ENDSCRIPT":
                 self.debug_msg("DEFAULT ENDSCRIPT", "<- stmt end")
                 return self.return_value
-            elif self.current_token.type == "NEWLINE":
-                self.next_token()
-                continue
-            elif self.current_token.type == "BREAKSTRUCTURE" and self.current_token.value == "return":
+            elif self.current_token.type == "RETURN":
                 await ReturnNode(self.current_token).create()
                 break
             else:
@@ -89,10 +91,12 @@ class Interpreter:
                     self.debug_msg("FAILCHECK ENDSCRIPT", "<- stmt end")
                     return self.return_value
                 try:
-                    await StatementNode(self.current_token).create()
+                    await self.defaultStatementNode(self.current_token).create()
                 except Exception as e:
                     self.error("UnknownError", str(e))
                     raise e
+
+            
             self.debug_msg(self.current_token, "<- stmt end")
             if self.get_next_token() == None: 
                 self.debug_msg("MISS ENDSCRIPT", "<- stmt end")
@@ -103,10 +107,10 @@ class Interpreter:
                     self.debug_msg("DEFAULT ENDSCRIPT", "<- stmt end")
                     return self.return_value
 
-    def setDefaultCompileStatementNode():
+    def setDefaultCompileStatementNode(self, check, node):
         pass
     
-    def addCompileCheck():
+    def addCompileCheck(self, check, node):
         pass
 
 

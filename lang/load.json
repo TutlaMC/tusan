@@ -4,8 +4,7 @@
     },
     "lang":{
         "lexer": {
-            "SET":["set"],
-            "TO":["to"]
+            
         },
         "syntax":{
             "var":{

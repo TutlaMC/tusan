@@ -1,5 +1,4 @@
-from tusk.node import Node
-from tusk.token import Token
+from tusan.Node import *
 
 class ConditionNode(Node):
     def __init__(self,token:Token):

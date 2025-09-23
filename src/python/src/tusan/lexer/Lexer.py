@@ -46,53 +46,8 @@ STRUCTURES = [
 
 # May not be the best lexer, but hey- if it works it works and don't touch it, you'll prob mess it up
 
-default_token_classification = {
-    "STRING": r"(['\"])(?:\\.|(?!\1).)*\1", 
-    "NUMBER": r"-?\d+(\.\d+)?",
-    "BOOLEAN": r"\b(true|false)\b",
-    "NULL": r"\bnothing\b",
-
-    "LEFT_PAR": r"\(",
-    "RIGHT_PAR": r"\)",
-    "LEFT_CURLY": r"\{",
-    "RIGHT_CURLY": r"\}",
-    "LEFT_SQUARE": r"\[",
-    "RIGHT_SQUARE": r"\]",
-    "COMMA": r",",
-    "SEMICOLON": r";",
-    "COLON": r":",
-
-    "ADD": r"\+",
-    "SUBTRACT": r"-",
-    "MULTIPLY": r"(?<!\*)\*(?!\*)",
-    "EXPONENT": r"(?<!\*)\*\*(?!\*)",
-    "DIVIDE": r"/",
-    "MODULO": r"%",
-
-    "RETURN": r"\breturn\b",
-    "BREAK": r"\bbreak\b",
-    "END": r"\bend\b",
-
-    "AND": r"\b(and)\b|(?<!&)&&(?!!)",
-    "OR": r"\b(or)\b|(?<!\|)\|\|(?!\|)",
-    "EQUALITY": r"==|is",
-    "NOT_EQUALS": r"!=",
-    "NOT": r"!|\bnot\b",
-    "OWNERSHIP": r"\bin\b|\bcontains\b",
-    "GREATER": r">",
-    "LESSER": r"<",
-    "GOE": r">=",
-    "LOE": r"<=",
-    "IGNORE": r"#.*",
-
-    "ASSIGN": r"(\b(to|be)\b)|=",
-
-    "KEYWORD": keywords,
-    "TYPE": types,
-    "EFFECT": EFFECTS,
-    "STRUCTURE": STRUCTURES,
-    "IDENTIFIER": r"[A-Za-z_][A-Za-z0-9_]*",
-}
+with open("lang/main.json") as f:
+    default_token_classification = f.read()
 
 
 
@@ -119,6 +74,7 @@ class Lexer:
     def tokenize(self):
         index = 0
         length = len(self.text)
+        print(self.text)
 
         while index < length:
             match_found = False
@@ -171,7 +127,9 @@ class Lexer:
                         break
 
             if not match_found: # eh i had no other idea, maybe config for another day
+                self.interpreter.error("how did you get here","what the fuck")
                 self.reg("IDENTIFIER", self.text[index])
                 index += 1
 
         self.reg("ENDSCRIPT", "")
+        return self.tokens

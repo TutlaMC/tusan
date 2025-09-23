@@ -1,17 +1,16 @@
-from tusk.node import Node
-from tusk.token import Token
-from tusk.nodes.condition import *
+from tusan.Node import *
+from tusan.nodes.expression.Condition import ConditionNode
 
 class IfNode(Node):
     def __init__(self, token: Token):
-        from tusk.interpreter import Interpreter
-        from tusk.nodes.statement import StatementNode
+        from tusan.interpreter import Interpreter
+        from tusan.nodes.statement import StatementNode
         self.interpreter = token.interpreter
         self.token = token
 
     async def create(self):
-        from tusk.nodes.expressions import ExpressionNode
-        from tusk.nodes.statement import StatementNode
+        from tusan.nodes.expressions import ExpressionNode
+        from tusan.nodes.statement import StatementNode
         self.condition = await ConditionNode(self.token).create()
         self.interpreter.expect_token("KEYWORD:then")
 

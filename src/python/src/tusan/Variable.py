@@ -1,4 +1,4 @@
-from tusk.token import Token
+from tusan.lexer.Token import Token
 
 def istusk(obj):
     if hasattr(obj,"value") and hasattr(obj,"properties"):

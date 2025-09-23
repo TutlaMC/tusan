@@ -1,6 +1,6 @@
-from tusk.token import Token
-from tusk.node import Node
-from tusk.variable import Variable, istusk
+from tusan.lexer.Token import Token
+from tusan.Node import Node
+from tusan.Variable import Variable
 import inspect
 
 class NameNode(Node):

@@ -1,11 +1,81 @@
 {
-    "core":{
-        "classic":true
+  "core": {
+    "classic": true
+  },
+  "lang": {
+    "lexer": {
+      "STRING": "(['\"])(?:\\\\.|(?!\\1).)*\\1",
+      "NUMBER": "-?\\d+(\\.\\d+)?",
+      "BOOLEAN": "\\b(true|false)\\b",
+      "NULL": "\\bnothing\\b",
+      "LEFT_PAR": "\\(",
+      "RIGHT_PAR": "\\)",
+      "LEFT_CURLY": "\\{",
+      "RIGHT_CURLY": "\\}",
+      "LEFT_SQUARE": "\\[",
+      "RIGHT_SQUARE": "\\]",
+      "COMMA": ",",
+      "SEMICOLON": ";",
+      "COLON": ":",
+      "ADD": "\\+",
+      "SUBTRACT": "-",
+      "MULTIPLY": "(?<!\\*)\\*(?!\\*)",
+      "EXPONENT": "(?<!\\*)\\*\\*(?!\\*)",
+      "DIVIDE": "/",
+      "MODULO": "%",
+      "RETURN": "\\breturn\\b",
+      "BREAK": "\\bbreak\\b",
+      "END": "\\bend\\b",
+      "AND": "\\b(and)\\b|(?<!&)&&(?!!)",
+      "OR": "\\b(or)\\b|(?<!\\|)\\|\\|(?!\\|)",
+      "EQUALITY": "==|is",
+      "NOT_EQUALS": "!=",
+      "NOT": "!|\\bnot\\b",
+      "OWNERSHIP": "\\bin\\b|\\bcontains\\b",
+      "GREATER": ">",
+      "LESSER": "<",
+      "GOE": ">=",
+      "LOE": "<=",
+      "IGNORE": "#.*",
+      "ASSIGN": "(\\b(to|be)\\b)|=",
+      "KEYWORD": [
+        "then", "elseif", "else",
+        "that",
+        "times", "do", "as",
+        "what", "type",
+        "characters", "items", "all",
+        "from", "of", "by", "till",
+        "capture",
+        "get", "post", "headers", "tson",
+        "character", "item", "number",
+        "file", "variable",
+        "with", "between",
+        "named",
+        "for", "can",
+        "a", "an", "the", "so", "to",
+        "toall",
+        "can", "cannot",
+        "because"
+      ],
+      "TYPE": ["NUMBER", "STRING", "BOOL", "BOOLEAN", "LIST", "NOTHING", "TSON"],
+      "EFFECT": [
+        "set",
+        "print",
+        "wait",
+        "add", "remove", "split", "replace",
+        "length",
+        "input", "convert",
+        "shell",
+        "request",
+        "index",
+        "read", "write", "rename",
+        "delete",
+        "random",
+        "import"
+      ],
+      "STRUCTURE": ["if", "while", "function", "loop"],
+      "IDENTIFIER": "[A-Za-z_][A-Za-z0-9_]*"
     },
-    "lang":{
-        "lexer": {
-        },
-        "syntax":{ 
-        }
-    }
+    "syntax": {}
+  }
 }

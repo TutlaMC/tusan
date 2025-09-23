@@ -1,15 +1,14 @@
 import time, asyncio
 
-from tusk.node import Node
-from tusk.token import Token
-from tusk.variable import  Variable
-from tusk.nodes.base.if_node import *
-from tusk.nodes.base.function import *
-from tusk.nodes.base.loops import WhileNode, LoopNode
-from tusk.nodes.del_ import DelNode
-from tusk.nodes.expressions import *
-from tusk.nodes.base.return_node import ReturnNode
-from tusk.nodes.effect import EffectNode
+from tusan.Node import Node
+from tusan.lexer.Token import Token
+from tusan.Variable import  Variable
+from tusan.nodes.base.If import *
+from tusan.nodes.base.function import *
+from tusan.nodes.base.loops import *
+from tusan.nodes.expression import *
+from tusan.nodes.base.Return import ReturnNode
+from tusan.nodes.effects import *
 class StatementNode(Node):
     def __init__(self, token:Token):
         self.interpreter = token.interpreter
@@ -34,7 +33,7 @@ class StatementNode(Node):
                     await LoopNode(self.interpreter.next_token()).create()
                     
                 elif self.token.value == "on":
-                    from tusk.nodes.discord.base.on import OnNode
+                    from tusan.nodes.discord.base.on import OnNode
                     await OnNode(self.token).create()
             elif self.token.type == "IDENTIFIER":
                 await ExpressionNode(self.token).create()
@@ -44,9 +43,9 @@ class StatementNode(Node):
                 await ExpressionNode(self.token).create()
             elif self.token.type == "BREAKSTRUCTURE":
                 await ReturnNode(self.token).create()
-            else: self.interpreter.error("UnexpectedToken", f"Expected KEYWORD | VALID_IDENTIFIER | STRUCTURE, got {self.interpreter.current_token.type} @tusk {self.interpreter.current_token.value}{self.token}", notes=["Possible Fix: Recheck code with documentation, you might have missed a keyword at position"])
+            else: self.interpreter.error("UnexpectedToken", f"Expected KEYWORD | VALID_IDENTIFIER | STRUCTURE, got {self.interpreter.current_token.type} @tusan {self.interpreter.current_token.value}{self.token}", notes=["Possible Fix: Recheck code with documentation, you might have missed a keyword at position"])
 
-        else: self.interpreter.error("UnexpectedToken", f"Expected KEYWORD | VALID_IDENTIFIER | STRUCTURE, got {self.interpreter.current_token.type} @tusk {self.interpreter.current_token.value}{self.token}", notes=["Possible Fix: Recheck code with documentation, you might have missed a keyword at position"])
+        else: self.interpreter.error("UnexpectedToken", f"Expected KEYWORD | VALID_IDENTIFIER | STRUCTURE, got {self.interpreter.current_token.type} @tusan {self.interpreter.current_token.value}{self.token}", notes=["Possible Fix: Recheck code with documentation, you might have missed a keyword at position"])
 
         self.type="1en"
         self.interpreter.debug_msg(self.interpreter.current_token, "<- stmt (node) end\n\n")

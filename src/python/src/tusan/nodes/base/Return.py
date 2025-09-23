@@ -1,6 +1,5 @@
-from tusk.node import Node
-from tusk.token import Token
-from tusk.nodes.expressions import ExpressionNode
+from tusan.Node import *
+from tusan.nodes.expression import *
 
 
 class ReturnNode(Node):
