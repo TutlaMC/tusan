@@ -4,14 +4,8 @@
     },
     "lang":{
         "lexer": {
-            "SET":["set"],
-            "TO":[""]
         },
-        "syntax":{
-            "var":{
-                "node":"VAR",
-                "syntax": "[SET] {[IDENTIFIER]:name} [TO] {<expr>:expr}"
-            }   
+        "syntax":{ 
         }
     }
 }

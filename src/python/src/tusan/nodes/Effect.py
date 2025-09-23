@@ -35,7 +35,6 @@ class EffectNode(Node):
         elif self.token.value == "rename":
             from tusk.nodes.effects.fs import RenameNode
             await RenameNode(self.token).create()
-                    
         elif self.token.value == "input":
             from tusk.nodes.effects.input_ import InputNode
             self.value = (await InputNode(self.token).create()).value
@@ -63,8 +62,6 @@ class EffectNode(Node):
         elif self.token.value == "shell":
             from tusk.nodes.effects.exec_ import ShellNode
             self.value = (await ShellNode(self.token).create()).value
-        elif self.token.value == "python":
-            from tusk.nodes.effects.exec_ import PythonNode
             self.value = (await PythonNode(self.token).create()).value
         elif self.token.value == "request":
             from tusk.nodes.effects.requests_ import RequestNode
@@ -79,50 +76,6 @@ class EffectNode(Node):
         elif self.token.value == "import":
             from tusk.nodes.base.import_ import ImportNode
             await ImportNode(self.token).create()
-        elif self.token.value == "json":
-            from tusk.nodes.effects.json_ import JsonNode
-            self.value = (await JsonNode(self.token).create()).value
-        elif self.token.value in ["getDBData","setDBData","deleteDBData","getDB","printDB","deleteDB","createDB"]:
-            from tusk.nodes.effects.db import DBNode
-            self.value = (await DBNode(self.token).create()).value
-
-
-
-
-        ####################### DISCORD EFFECTS #######################
-        elif self.token.value in ["send","edit","reply"]:
-            from tusk.nodes.discord.effects.messages_ import MessageNode
-            self.value = (await MessageNode(self.token).create()).value
-        elif self.token.value == "create":
-            from tusk.nodes.discord.effects.create import CreateNode
-            self.value = (await CreateNode(self.token).create()).value
-        elif self.token.value == "allow":
-            from tusk.nodes.discord.effects.permissions_ import AllowNode
-            self.value = (await AllowNode(self.token).create())
-        elif self.token.value == "disallow":
-            from tusk.nodes.discord.effects.permissions_ import AllowNode
-            self.value = (await AllowNode(self.token).create())
-        elif self.token.value == "change":
-            from tusk.nodes.discord.effects.change import ChangeNode
-            self.value = (await ChangeNode(self.token).create())
-        elif self.token.value == "grant":
-            from tusk.nodes.discord.effects.roles import RoleNode
-            self.value = (await RoleNode(self.token).create())
-        elif self.token.value == "revoke":
-            from tusk.nodes.discord.effects.roles import RoleNode
-            self.value = (await RoleNode(self.token).create())
-        elif self.token.value == "timeout":
-            from tusk.nodes.discord.effects.admin import TimeoutNode
-            self.value = (await TimeoutNode(self.token).create())
-        elif self.token.value == "kick":
-            from tusk.nodes.discord.effects.admin import KickNode
-            self.value = (await KickNode(self.token).create())
-        elif self.token.value == "ban":
-            from tusk.nodes.discord.effects.admin import BanNode
-            self.value = (await BanNode(self.token).create())
-        elif self.token.value == "unban":
-            from tusk.nodes.discord.effects.admin import UnbanNode
-            self.value = (await UnbanNode(self.token).create())
             
         # delete is in tusk.nodes.del_
 

@@ -5,12 +5,14 @@ import json
 import os
 
 from logger import *
-from tusk.lexer import *
+from tusan.lexer import *
 
-from tusk.nodes.expressions import FactorNode, TermNode, ExpressionNode
-from tusk.nodes.statement import StatementNode
-from tusk.nodes.base.function import FunctionNode
-from tusk.nodes.base.return_node import ReturnNode
+from tusan.nodes.expressions import FactorNode, TermNode, ExpressionNode
+from tusan.nodes.statement import StatementNode
+from tusan.nodes.base.function import FunctionNode
+from tusan.nodes.base.return_node import ReturnNode
+
+from tusan.interpreter.InterpreterData import InterpreterData
 
 ### INTERPRETER
 
@@ -18,37 +20,25 @@ class Interpreter:
     def __init__(self):      
         self.return_value = True
 
-    def setup(self, data=None, tokens=None, text=None, file=None, ext=[]):
+    def setup(self, data: InterpreterData=None, tokens=None, text=None, file=None, ext=[]):
         ## Lang Init
-        #
-        #
-        #
-        # Note: Currently this does absolutely nothing, read only the compile function
-        #
-        #
-        #
-        #
 
         with open("lang/main.json","r") as f:
             main = json.load(f)
-        for i in ext:
-            # load the extension
+        for i in ext: # load extenions
             with open(i,"r") as f:
                 e = json.load(f)
             for name, conf in e["lang"]["lexer"].items():
                 main["lang"]["lexer"][name] = conf
         
+        self.lang = main
 
         ## Interpreter Init
         if data==None:
-            self.data = {
-                "vars":{},
-                "funcs":{},
-                "local":{},
-                "async_tasks":[],
-            }
+            self.data = InterpreterData()
         else:
             self.data = data
+        ## Content Load
         if text!=None:self.text=text
         if file!=None:
             with open(file, "r") as f:
@@ -57,12 +47,16 @@ class Interpreter:
         else: self.file = "<stdin>"
 
         if tokens==None:
-            self.tokens = Lexer(self.text, self).classify_tokens()
+            lexer = Lexer(self.text, self)
+            lexer.set_classifications(main['lang']['lexer'])
+            self.tokens = lexer.classify_tokens()
         else:
             self.tokens = tokens 
             self.tokens = self.change_token_parent(self)                       
             
 
+
+        # compile data
         self.pos = 0
         self.current_token = self.tokens[self.pos]
 
@@ -108,6 +102,19 @@ class Interpreter:
                 if e.type == "ENDSCRIPT": 
                     self.debug_msg("DEFAULT ENDSCRIPT", "<- stmt end")
                     return self.return_value
+
+    def setDefaultCompileStatementNode():
+        pass
+    
+    def addCompileCheck():
+        pass
+
+
+
+    ###################################
+
+
+
 
 
     def change_token_parent(self, interpreter) -> list[Token]:
